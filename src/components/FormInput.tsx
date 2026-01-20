@@ -1,13 +1,18 @@
 import React, { useState } from 'react';
-import { SalaryData, Allowance, Deduction } from '../types';
-import { Plus, Trash2, Building, User, DollarSign, FileText, ChevronDown, ChevronUp, Calendar } from 'lucide-react';
+import { SalaryData, Allowance, Deduction, SavedSlip } from '../types';
+import { Plus, Trash2, Building, User, DollarSign, FileText, ChevronDown, ChevronUp, Calendar, Save, History } from 'lucide-react';
 import TTDUpload from './TTDUpload';
 import StampUpload from './StampUpload';
 import CompanyInfo from './CompanyInfo';
+import SavedSlipsList from './SavedSlipsList';
 
 interface FormInputProps {
   data: SalaryData;
   onChange: (newData: SalaryData) => void;
+  savedSlips: SavedSlip[];
+  onSaveSlip: () => void;
+  onLoadSlip: (data: SalaryData) => void;
+  onDeleteSlip: (id: string) => void;
 }
 
 // Reusable Number Input Component
@@ -50,13 +55,15 @@ const AccordionItem = ({
     icon: Icon, 
     isOpen, 
     onToggle, 
-    children 
+    children,
+    badge
 }: { 
     title: string; 
     icon: any; 
     isOpen: boolean; 
     onToggle: () => void; 
-    children: React.ReactNode 
+    children: React.ReactNode;
+    badge?: number;
 }) => {
     return (
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden transition-all duration-300">
@@ -70,6 +77,11 @@ const AccordionItem = ({
                         <Icon size={20} className={isOpen ? 'text-blue-600' : 'text-gray-500'} />
                     </div>
                     <h3 className="font-bold text-lg text-gray-800">{title}</h3>
+                    {badge !== undefined && badge > 0 && (
+                        <span className="bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full min-w-[20px] text-center">
+                            {badge}
+                        </span>
+                    )}
                 </div>
                 {isOpen ? <ChevronUp className="text-gray-400" /> : <ChevronDown className="text-gray-400" />}
             </button>
@@ -84,8 +96,16 @@ const AccordionItem = ({
     );
 };
 
-const FormInput: React.FC<FormInputProps> = ({ data, onChange }) => {
+const FormInput: React.FC<FormInputProps> = ({ 
+    data, 
+    onChange, 
+    savedSlips, 
+    onSaveSlip, 
+    onLoadSlip, 
+    onDeleteSlip 
+}) => {
   const [openSections, setOpenSections] = useState({
+    history: false,
     company: false,
     letter: true,
     employee: true,
@@ -97,6 +117,7 @@ const FormInput: React.FC<FormInputProps> = ({ data, onChange }) => {
     setOpenSections(prev => {
         const isCurrentlyOpen = prev[section];
         return {
+            history: false,
             company: false,
             letter: false,
             employee: false,
@@ -169,6 +190,23 @@ const FormInput: React.FC<FormInputProps> = ({ data, onChange }) => {
   return (
     <div className="space-y-4 pb-24">
       
+      {/* 0. Saved History (NEW) */}
+      <AccordionItem
+        title="Riwayat Tersimpan"
+        icon={History}
+        isOpen={openSections.history}
+        onToggle={() => toggleSection('history')}
+        badge={savedSlips.length}
+      >
+        <SavedSlipsList 
+            currentData={data}
+            savedSlips={savedSlips}
+            onSave={onSaveSlip}
+            onLoad={onLoadSlip}
+            onDelete={onDeleteSlip}
+        />
+      </AccordionItem>
+
       {/* 1. Company Info */}
       <AccordionItem 
         title="Informasi Perusahaan" 

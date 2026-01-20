@@ -1,3 +1,4 @@
+
 export interface Allowance {
   id: string;
   name: string;
@@ -55,6 +56,13 @@ export interface SalaryData {
   // Signatures
   signatureImage?: string; // base64
   stampImage?: string; // base64
+}
+
+export interface SavedSlip {
+  id: string;
+  title: string;
+  timestamp: string;
+  data: SalaryData;
 }
 
 export const INITIAL_STATE: SalaryData = {
