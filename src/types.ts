@@ -1,4 +1,5 @@
 
+
 export interface Allowance {
   id: string;
   name: string;
@@ -32,6 +33,7 @@ export interface SalaryData {
   slipNumber: string;
   period: string;
   date: string;
+  locationCity: string; // Added field for city name
 
   // Earnings
   basicSalary: number;
@@ -82,6 +84,7 @@ export const INITIAL_STATE: SalaryData = {
   slipNumber: 'INV/2024/001',
   period: 'Januari 2026',
   date: new Date().toISOString().split('T')[0],
+  locationCity: 'Jakarta', // Default value
   
   basicSalary: 5000000,
   allowances: [

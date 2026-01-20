@@ -163,7 +163,7 @@ const PayslipPreview: React.FC<PayslipPreviewProps> = ({ data, forwardRef }) => 
         {/* Signatures */}
         <div className="flex justify-end mt-12 break-inside-avoid page-break-inside-avoid">
              <div className="text-center min-w-[200px] relative px-4">
-                 <p className="text-sm">Jakarta, {new Date(data.date).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'})}</p>
+                 <p className="text-sm">{data.locationCity}, {new Date(data.date).toLocaleDateString('id-ID', {day: 'numeric', month: 'long', year: 'numeric'})}</p>
                  <p className="text-sm mb-4">Hormat Kami,</p>
                  
                  {/* Stamp Overlay - Centered and scaled */}

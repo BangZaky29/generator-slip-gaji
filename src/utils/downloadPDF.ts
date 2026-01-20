@@ -4,7 +4,7 @@ export const downloadPDF = async (element: HTMLElement | null, filename: string)
   if (!element) return;
 
   const opt = {
-    margin: [0, 0, 0, 0], // No margin, handled by CSS
+    margin: [0, 0, 0, 0] as [number, number, number, number], // No margin, handled by CSS
     filename: `${filename}.pdf`,
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2, useCORS: true, letterRendering: true },

@@ -235,18 +235,27 @@ const FormInput: React.FC<FormInputProps> = ({
                <input name="slipNumber" value={data.slipNumber} onChange={handleChange} className="input-field" placeholder="INV/..." />
              </div>
            </div>
+           
            <div className="grid grid-cols-2 gap-4">
              <div>
               <label className="label">Periode Gaji</label>
               <input name="period" value={data.period} onChange={handleChange} className="input-field" placeholder="Januari 2026" />
              </div>
              <div>
+               <label className="label">Lokasi Penerbitan</label>
+               <input name="locationCity" value={data.locationCity} onChange={handleChange} className="input-field" placeholder="Jakarta" />
+             </div>
+           </div>
+
+           <div className="grid grid-cols-2 gap-4">
+             <div>
               <label className="label">Tanggal Cetak</label>
               <input type="date" name="date" value={data.date} onChange={handleChange} className="input-field cursor-pointer" />
              </div>
            </div>
+
            <p className="text-xs text-gray-500 bg-blue-50 p-2 rounded border border-blue-100">
-             ℹ️ Informasi ini akan muncul di bagian Header (Kop Surat) slip gaji.
+             ℹ️ Informasi ini akan muncul di bagian Header dan Footer slip gaji.
            </p>
         </div>
       </AccordionItem>
