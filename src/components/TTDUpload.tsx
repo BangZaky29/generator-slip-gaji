@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { Eraser, Upload, PenTool, CheckCircle, RefreshCcw } from 'lucide-react';
+import { Eraser, Upload, PenTool, CheckCircle, Trash2 } from 'lucide-react';
 
 interface TTDUploadProps {
   signature?: string;
@@ -152,15 +152,15 @@ const TTDUpload: React.FC<TTDUploadProps> = ({ signature, onSave }) => {
                 onTouchEnd={stopDrawing}
             />
             
-            {/* Floating Clear Button */}
-            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+            {/* Floating Clear Button (Always Visible) */}
+            <div className="absolute top-2 right-2">
                 <button
                     type="button"
                     onClick={clearCanvas}
-                    className="p-1.5 bg-white/90 text-red-600 rounded-lg hover:bg-red-50 border border-gray-200 shadow-sm backdrop-blur-sm"
-                    title="Bersihkan Canvas"
+                    className="p-2 bg-white text-red-500 rounded-lg border border-gray-200 shadow-sm hover:bg-red-50 transition-all active:scale-95 flex items-center justify-center"
+                    title="Hapus Coretan"
                 >
-                    <RefreshCcw size={14} />
+                    <Trash2 size={16} />
                 </button>
             </div>
             
